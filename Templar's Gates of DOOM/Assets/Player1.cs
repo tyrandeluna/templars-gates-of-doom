@@ -10,6 +10,7 @@ public class Player1 : MonoBehaviour
     public Animator animator;
 
     public static float healthAmount = 1;
+    public static bool statusDeath = false;
     public float restartLevelDelay = 1f;
 
     Vector2 movement;
@@ -28,7 +29,8 @@ public class Player1 : MonoBehaviour
         animator.SetFloat("speed", movement.sqrMagnitude);
 
         if (healthAmount <= 0) {
- 			Destroy (gameObject);
+            Destroy(gameObject);
+            statusDeath = true;
         }
     }
 
@@ -38,8 +40,8 @@ public class Player1 : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
 	{
-		if (col.gameObject.tag.Equals("Bullet")) {
-			healthAmount -= 0.3f;
+		if (col.gameObject.tag.Equals("Bullet") || col.gameObject.tag.Equals("Enemy1")) {
+			healthAmount -= 0.3f; 
             Debug.Log("asjda");
         }
 
