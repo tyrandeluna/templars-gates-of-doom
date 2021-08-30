@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public BoardManager boardScript;
 
     private GameObject levelImage;
+    private Text levelText;
+    private Text gameOverText;
     private int level = 1;
     private bool doingSetup;
     
@@ -35,10 +37,18 @@ public class GameManager : MonoBehaviour
         doingSetup = true;
 
         levelImage = GameObject.Find("LevelImage");
+        levelText = GameObject.Find("levelText").GetComponent<Text>();
+        gameOverText = GameObject.Find("gameOverText").GetComponent<Text>();
+        levelText.text = "Level " + level;
         levelImage.SetActive(true);
         Invoke("HideLevelImage", levelStartDelay);
 
         boardScript.SetupScene(level);
+    }
+
+    public void GameOver() {
+        gameOverText.text = "Game Over";
+        levelImage.SetActive(true);
     }
 
     public void HideLevelImage() {

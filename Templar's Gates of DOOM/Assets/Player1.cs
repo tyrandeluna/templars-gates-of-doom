@@ -31,6 +31,7 @@ public class Player1 : MonoBehaviour
         if (healthAmount <= 0) {
             Destroy(gameObject);
             statusDeath = true;
+            GameManager.instance.GameOver();
         }
     }
 
