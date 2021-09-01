@@ -5,15 +5,15 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public float levelStartDelay = 2f;
+    public float levelStartDelay = 1f;
     public static GameManager instance = null;
     public BoardManager boardScript;
 
     private GameObject levelImage;
     private Text levelText;
     private Text gameOverText;
-    private int level = 1;
     private bool doingSetup;
+    public int level = 1;
     
     void Awake() {
         if(instance == null)
@@ -40,8 +40,8 @@ public class GameManager : MonoBehaviour
         levelText = GameObject.Find("levelText").GetComponent<Text>();
         gameOverText = GameObject.Find("gameOverText").GetComponent<Text>();
         levelText.text = "Level " + level;
-        levelImage.SetActive(true);
-        Invoke("HideLevelImage", levelStartDelay);
+        levelImage.SetActive(false);
+        // Invoke("HideLevelImage", levelStartDelay);
 
         boardScript.SetupScene(level);
     }
@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
     public void GameOver() {
         gameOverText.text = "Game Over";
         levelImage.SetActive(true);
-    }
+    } 
 
     public void HideLevelImage() {
         levelImage.SetActive(false);
@@ -57,7 +57,9 @@ public class GameManager : MonoBehaviour
     }
     // Update is called once per frame
     void Update()
-    {
-        
+    { 
+        if (level % 5 == 0) {
+          Player1.healthAmount = 1;
+        } 
     }
 }

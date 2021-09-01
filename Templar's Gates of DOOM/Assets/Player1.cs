@@ -32,6 +32,7 @@ public class Player1 : MonoBehaviour
             Destroy(gameObject);
             statusDeath = true;
             GameManager.instance.GameOver();
+            timer.stopTime = true;
         }
     }
 
@@ -41,9 +42,8 @@ public class Player1 : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
 	{
-		if (col.gameObject.tag.Equals("Bullet") || col.gameObject.tag.Equals("Enemy1")) {
+		if (col.gameObject.tag.Equals("Bullet") || col.gameObject.tag.Equals("Enemy")) {
 			healthAmount -= 0.3f; 
-            Debug.Log("asjda");
         }
 
         if(col.tag == "Exit") {

@@ -26,6 +26,11 @@ public class BoardManager : MonoBehaviour
     public GameObject[] enemyTiles;
     public GameObject[] outerWallTiles;
 
+    public int maxEnemy = 1;
+    public int minEnemy = 1;
+
+    private bool exitAvaliable;
+
     private Transform boardHolder;
     private List <Vector3> gridPositions = new List<Vector3>();
     void InitialiseList() {
@@ -38,7 +43,19 @@ public class BoardManager : MonoBehaviour
         }
     }
 
+    private void Update() {
+        if(timer.stopTime) {
+            if (!exitAvaliable) {
+                exitAvaliable = true;
+                Instantiate(exit, new Vector3(columns - 1, rows - 1, 0f), Quaternion.identity);
+            }
+        }
+        
+    }
+
     void BoardSetup() {
+        exitAvaliable = false;
+
         boardHolder = new GameObject ("Board").transform;
 
         for(int x = -1; x < columns + 1; x++){
@@ -76,8 +93,12 @@ public class BoardManager : MonoBehaviour
         InitialiseList();
         LayoutObjectAtRandom(wallTiles, wallCount.minimum, wallCount.maximum);
         LayoutObjectAtRandom(wallTiles, wallCount.minimum, wallCount.maximum);
-        int enemyCount = (int)Mathf.Log(level, 2f);
-        LayoutObjectAtRandom(enemyTiles, enemyCount, enemyCount);
-        Instantiate(exit, new Vector3(columns - 1, rows - 1, 0f), Quaternion.identity);
+
+        maxEnemy += level % 2;
+        minEnemy += maxEnemy - 2;
+        
+
+        LayoutObjectAtRandom(enemyTiles, minEnemy, maxEnemy);
     }
+    
 }
